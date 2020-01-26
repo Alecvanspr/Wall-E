@@ -31,5 +31,5 @@ public class TimePickerFragment extends DialogFragment {
   //  String value="Hello world";
    // Intent i = new Intent(TimePickerFragment.this, Watertab.class);
   //  i.putExtra("uur",uur);
-   // startActivity(i);
+   // startActivity(i);//
 }//
