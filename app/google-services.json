@@ -1,0 +1,72 @@
+{
+  "project_info": {
+    "project_number": "807874779779",
+    "firebase_url": "https://wall-e-de59d.firebaseio.com",
+    "project_id": "wall-e-de59d",
+    "storage_bucket": "wall-e-de59d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807874779779:android:e5a4b69cab76b5c2abd9b6",
+        "android_client_info": {
+          "package_name": "com.backup.walle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807874779779-asjr5e1vjgsnvosttf7refsuiqn7jd4c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.backup.walle",
+            "certificate_hash": "4941fd8139a7f319c8a53e4d01963fd45069ffa1"
+          }
+        },
+        {
+          "client_id": "807874779779-ne3sclspoi26054s83ls05cpekkves1e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.backup.walle",
+            "certificate_hash": "9984890fafdd6be10e93171460b08e0b9f90d7e4"
+          }
+        },
+        {
+          "client_id": "807874779779-bhgm16b12erndgbargpaf2qj3spkfrm2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.backup.walle",
+            "certificate_hash": "4674b5d9158563be400c62b2e073c4493037faa5"
+          }
+        },
+        {
+          "client_id": "807874779779-a99qfl1qad58bb96l2ve1dp14ikn8cf8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.backup.walle",
+            "certificate_hash": "1762a774f863370054542498801468c54f05dc03"
+          }
+        },
+        {
+          "client_id": "807874779779-2um5g3tltnjm1o7hesthv41b983lqsc4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhA60wlQb6CuYvBPm98EPNKfhMX1eURKE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807874779779-2um5g3tltnjm1o7hesthv41b983lqsc4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

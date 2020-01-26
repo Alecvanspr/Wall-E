@@ -1,0 +1,22 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/colorWhite</item>
+    </style>
+    <style name="LaunchScreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/launchscreen</item>
+        <item name="colorPrimaryDark">#ffffff</item>
+        <item name="android:navigationBarColor">#ffffff</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+    <style name="DashBoard" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+    </style>
+
+</resources>
