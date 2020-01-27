@@ -21,15 +21,7 @@ public class TimePickerFragment extends DialogFragment {
         Calendar c = Calendar.getInstance();
         hour = c.get(Calendar.HOUR_OF_DAY);
         minute = c.get(Calendar.MINUTE);
-
         return new TimePickerDialog(getActivity(), (TimePickerDialog.OnTimeSetListener) getActivity(), hour, minute, DateFormat.is24HourFormat(getActivity()));
-    }
-    int uur = hour * 36000000;
-    int minuten = minute *60000;
 
-    //user914425 stack overflow
-  //  String value="Hello world";
-   // Intent i = new Intent(TimePickerFragment.this, Watertab.class);
-  //  i.putExtra("uur",uur);
-   // startActivity(i);//
-}//
+    }
+}
