@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,22 +43,18 @@ public class Main extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         // Checks Api version, will only work with Api higher then KitKat
-        if(currentApiVersion >= Build.VERSION_CODES.KITKAT)
-        {
+        if (currentApiVersion >= Build.VERSION_CODES.KITKAT) {
 
             getWindow().getDecorView().setSystemUiVisibility(flags);
 
             //Code to make sure when the Volume Buttons are pressed that it it exits fullscreen but goes back into fullscreen
             final View decorView = getWindow().getDecorView();
             decorView
-                    .setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener()
-                    {
+                    .setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
 
                         @Override
-                        public void onSystemUiVisibilityChange(int visibility)
-                        {
-                            if((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0)
-                            {
+                        public void onSystemUiVisibilityChange(int visibility) {
+                            if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
                                 decorView.setSystemUiVisibility(flags);
                             }
                         }
@@ -65,20 +62,21 @@ public class Main extends AppCompatActivity {
         }
 
         Fragment fragment = new DashBoard();
-        fragmentTransaction.add(R.id.fragment_layout,fragment);
+        fragmentTransaction.add(R.id.fragment_layout, fragment);
 
         fragmentTransaction.commit();
 
         BottomNavigationView BottomNav = findViewById(R.id.BottomNav);
         BottomNav.setOnNavigationItemSelectedListener(BottomNavListener);
     }
+
     //Sending user to the fragment of choice when clicked
     private BottomNavigationView.OnNavigationItemSelectedListener BottomNavListener = new
-            BottomNavigationView.OnNavigationItemSelectedListener(){
+            BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                     Fragment thisFragment = null;
-                    switch (menuItem.getItemId()){
+                    switch (menuItem.getItemId()) {
                         case R.id.nav_Dashboard:
                             thisFragment = new DashBoard();
                             break;
@@ -89,24 +87,47 @@ public class Main extends AppCompatActivity {
                             thisFragment = new Settings();
                             break;
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout,thisFragment).commit();
-                    return true;}
-    };
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, thisFragment).commit();
+                    return true;
+                }
+            };
 
     //Logout button
-    public void logout(View view){
+    public void logout(View view) {
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(getApplicationContext(), LogIn.class));
         finish();
     }
+
     //Dit is de knop naar de temperatuur
-    public void temperature(View view){
+    public void temperature(View view) {
         Fragment anotherFragment = new Temperature();
-        fragmentManager.beginTransaction().replace(R.id.fragment_layout,anotherFragment,anotherFragment.getTag()).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_layout, anotherFragment, anotherFragment.getTag()).commit();
     }
+
     //Watertab knop
-    public void water(View view){
+    public void water(View view) {
         startActivity(new Intent(getApplicationContext(), Watertab.class));
         finish();
+    }
+
+    public void onTimeSet(Watertab view, int getal1) { //Dit is voor data uit Watertab
+        final TextView textView = (TextView) findViewById(R.id.Water);
+        textView.setText("Sico mode");
+        new CountDownTimer(getal1, 1) {
+            public void onTick(long millisUntilFinished) {
+                if (((millisUntilFinished / 1000) % 59) > 9) {
+                    textView.setText((String.valueOf(millisUntilFinished / 36000000)) + ":" + (String.valueOf((millisUntilFinished / 60000) % 59)) + ":" + (String.valueOf(((millisUntilFinished / 1000) % 59)))); //1000 laat de seconden zien
+                } else {
+                    textView.setText((String.valueOf(millisUntilFinished / 36000000)) + ":" + (String.valueOf((millisUntilFinished / 60000) % 59)) + ":0" + (String.valueOf(((millisUntilFinished / 1000) % 59)))); //1000 laat de seconden zien
+                }
+                millisUntilFinished--;
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
     }
 }
