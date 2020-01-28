@@ -72,7 +72,7 @@ public class Watertab extends AppCompatActivity implements TimePickerDialog.OnTi
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final String UserId = FirebaseAuth.getInstance().getUid();
 
-        button= (Button) findViewById(R.id.waterknp);
+        button= (Button) findViewById(R.id.mButtonStartPause);
         textView = (TextView) findViewById(R.id.text_view_countdown);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -83,9 +83,9 @@ public class Watertab extends AppCompatActivity implements TimePickerDialog.OnTi
                         String tijd = ("Tijd: " + documentSnapshot.getLong("Tijd"));
                     }
                 });
-                new CountDownTimer(600000000, 1) {
+                new CountDownTimer(60000000, 1) {
                     public void onTick(long millisUntilFinished) {
-                        if (((millisUntilFinished / 1000) % 59) < 9) {
+                        if (((millisUntilFinished / 1000) % 59) > 9) {
                             textView.setText((String.valueOf(millisUntilFinished / 36000000)) + ":" + (String.valueOf((millisUntilFinished / 60000) % 59)) + ":" + (String.valueOf(((millisUntilFinished / 1000) % 59)))); //1000 laat de seconden zien
                         } else {
                             textView.setText((String.valueOf(millisUntilFinished / 36000000)) + ":" + (String.valueOf((millisUntilFinished / 60000) % 59)) + ":0" + (String.valueOf(((millisUntilFinished / 1000) % 59)))); //1000 laat de seconden zien
@@ -109,15 +109,10 @@ public class Watertab extends AppCompatActivity implements TimePickerDialog.OnTi
         });
 */
 
-
+        //andere
         final Switch simpleSwitch = (Switch) findViewById(R.id.KlokAan);
-        mTextViewCountDown = findViewById(R.id.text_view_countdown);
-
-
-        //Dit is voor de aan uit knop voor de klok.
-        boolean KlokKnop = false;
+        mTextViewCountDown = findViewById(R.id.Watertxt);
         Boolean switchState = simpleSwitch.isChecked(); //Dit checkt of de timer klok aan of uit is
-
         simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -125,17 +120,70 @@ public class Watertab extends AppCompatActivity implements TimePickerDialog.OnTi
                     documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-
                             TextView textView = (TextView) findViewById(R.id.textView);
                             textView.setText("Hour: " + (((documentSnapshot.getLong("Uur")))) + " Minute: " + (((documentSnapshot.getLong("Minuten")))));
+                            Map<String, Object> User = new HashMap<>();
+                            User.put("Klok", true);
+                            db.collection("Users").document(UserId)
+                                    .update(User);
                         }
                     });
                 } else {
                     TextView textView = (TextView) findViewById(R.id.textView);
                     textView.setText("Geen tijd ingesteld");
+                    Map<String, Object> User = new HashMap<>();
+                    User.put("Klok", false);
+                    db.collection("Users").document(UserId)
+                            .update(User);
                 }
             }
         });
+
+        //Waterenknop
+        final Switch WaterSwitch = (Switch) findViewById(R.id.Waterknop);
+        mTextViewCountDown = findViewById(R.id.text_view_countdown);
+        //Dit is voor het wateren op control.
+        Boolean VibeCheck = WaterSwitch.isChecked(); //Checkt of het aan of uit is
+        WaterSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean jaofnee) {
+                if (jaofnee) {
+                    TextView textView = (TextView) findViewById(R.id.Watertxt);
+                    textView.setText(" ");
+                    Map<String, Object> User = new HashMap<>();
+                    User.put("Wateren", true);
+                    db.collection("Users").document(UserId)
+                            .update(User);
+                    new CountDownTimer(1000, 1000) {
+                        public void onFinish() {
+                            Map<String, Object> User = new HashMap<>();
+                            User.put("Wateren", false);
+                            db.collection("Users").document(UserId)
+                                    .update(User);
+                        }
+
+                        public void onTick(long millisUntilfinish) {
+
+                        }
+                    }.start();
+               /* }else{
+                    DocumentReference documentReference = db.collection("Users").document(UserId);
+                    documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                            TextView textView = (TextView) findViewById(R.id.Watertxt);
+                            textView.setText("Wordt Gewaterd");
+                            Map<String, Object> User = new HashMap<>();
+                            User.put("Wateren", false);
+                            db.collection("Users").document(UserId)
+                                    .update(User);
+                        }
+                    });
+                */
+                }
+            }
+        });
+
+
         button = (Button) findViewById(R.id.GATERUG);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
